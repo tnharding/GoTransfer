@@ -10,7 +10,7 @@ import (
 )
 
 var destURL = flag.String("dest", "", "URL location of server")
-var filePath = flag.String("path", "", "Location of file(s) to transfer.")
+var filePath = flag.String("path", "", "Location of file to transfer.")
 
 func main() {
 	flag.Parse()
@@ -56,5 +56,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("StatusCode:", resp.StatusCode)
+
+	if resp.StatusCode == 200 {
+		fmt.Println("File was successfully transferred.")
+	} else {
+		fmt.Println("File was not transferred.")
+	}
 }
