@@ -52,9 +52,6 @@ func main() {
 	fi, err := file.Stat()
 	req.ContentLength = fi.Size()
 
-	req.Header.Set("AS2-To", "\"axway -> interchange\"")
-	req.Header.Set("AS2-From", "\"axway-trading\"")
-
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal(err)
