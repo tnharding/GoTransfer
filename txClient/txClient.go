@@ -56,6 +56,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	resp.Body.Close()
 
 	if resp.StatusCode == 200 {
 		fmt.Println("File was successfully transferred.")
