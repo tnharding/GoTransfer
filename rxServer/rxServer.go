@@ -75,7 +75,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/upload", saveUploadedFile)
 
-	fmt.Println("rxServer is listening at:")
+	fmt.Println("rxServer is running on ip address:")
 	//print local ip addressess
 	printLocalIpAddr()
 
