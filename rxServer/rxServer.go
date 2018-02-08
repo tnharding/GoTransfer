@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"strings"
@@ -45,9 +46,38 @@ func saveUploadedFile(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Successully saved file", filename)
 }
 
+func printLocalIpAddr() {
+	ifaces, err := net.Interfaces()
+	if err != nil {
+		panic("Error getting interfaces from os.")
+	}
+	for _, i := range ifaces {
+		addrs, err := i.Addrs()
+		if err != nil {
+			panic("Error retrieving address from interface.")
+		}
+		fmt.Println("Interface:", i.Name)
+
+		for _, addr := range addrs {
+			var ip net.IP
+			switch v := addr.(type) {
+			case *net.IPNet:
+				ip = v.IP
+			case *net.IPAddr:
+				ip = v.IP
+			}
+			fmt.Println("\tIP Address:", ip)
+		}
+	}
+}
+
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/upload", saveUploadedFile)
+
+	fmt.Println("rxServer is listening at:")
+	//print local ip addressess
+	printLocalIpAddr()
 
 	err := http.ListenAndServe(":8080", mux) // set listen port
 	if err != nil {
