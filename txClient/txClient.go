@@ -44,8 +44,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	//fmt.Println("Selected Filename is:", filepath.Base(file.Name()))
-
 	//set the content-type and the name of the file
 	req.Header.Set("Content-Type", "application/octet-stream")
 	req.Header.Set("Content-Disposition", "attachment; filename=\""+filepath.Base(file.Name())+"\"")
